@@ -1217,10 +1217,10 @@ function githubssh()
     then
         echo .git directory not found. Please run this from the root directory of the Android repository you wish to set up.
     fi
-    GERRIT_REMOTE=$(cat .git/config  | grep git://github.com | awk '{ print $NF }' | sed s#git://github.com/##g)
+    GERRIT_REMOTE=$(cat .git/config  | grep git://github.com/GenetICS | awk '{ print $NF }' | sed s#git://github.com/##g)
     if [ -z "$GERRIT_REMOTE" ]
     then
-        GERRIT_REMOTE=$(cat .git/config  | grep http://github.com | awk '{ print $NF }' | sed s#http://github.com/##g)
+        GERRIT_REMOTE=$(cat .git/config  | grep http://github.com/GenetICS | awk '{ print $NF }' | sed s#http://github.com/##g)
         if [ -z "$GERRIT_REMOTE" ]
         then
           echo Unable to set up the git remote, are you in the root of the repo?
@@ -1268,7 +1268,7 @@ function mergeupstream() {
     ISGenetICS_REPO=$(echo $GERRIT_REMOTE | grep GenetICS | awk '{ print $NF }')
     if [ -z "$ISGenetICS_REPO" ]
     then
-        echo " I am not a GenetICS project."
+        return 0
     else
         upstream
         githubssh
